@@ -1536,7 +1536,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 768f72c579c870e47be349653539d95a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mDelay: 10
+  mDelay: 5
   mText: {fileID: 49353920}
   mSpaceSprite: {fileID: 970454959}
 --- !u!4 &1759220689

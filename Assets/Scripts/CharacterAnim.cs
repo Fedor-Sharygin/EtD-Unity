@@ -14,6 +14,11 @@ public class CharacterAnim : MonoBehaviour
 
     private void Update()
     {
+        if (FindObjectOfType<SlimeController>().mPlayCredits)
+        {
+            return;
+        }
+
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
             mAnimator.SetTrigger("isJumping");

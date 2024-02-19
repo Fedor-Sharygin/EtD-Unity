@@ -858,7 +858,7 @@ MonoBehaviour:
 
     PROGRAMMER
 
-    ALEX SCARF
+    TED SHARYGIN
 
 
     SOME SCRIPTS USED
@@ -6116,7 +6116,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 387302161}
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 5.51, y: 4.5, z: 0}
+  m_LocalPosition: {x: 5.51, y: 4.58, z: 0}
   m_LocalScale: {x: 4.012444, y: 0.66617453, z: 2.1402}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -17749,7 +17749,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'GAMEPLAY AND LEVEL DESIGNER
 
-    ALEX SCARF'
+    TED SHARYGIN'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d41a21418b09a034c98c973b2614f45a, type: 2}
   m_sharedMaterial: {fileID: -8887586055210592558, guid: d41a21418b09a034c98c973b2614f45a, type: 2}
@@ -26310,7 +26310,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'COMPOSER
 
-    ALEX SCARF
+    TED SHARYGIN
 
     via "LMMS" application'
   m_isRightToLeft: 0
@@ -27609,7 +27609,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'ARTIST
 
-    ALEX SCARF
+    TED SHARYGIN
 
     SPRITES via "PISKEL" application
 

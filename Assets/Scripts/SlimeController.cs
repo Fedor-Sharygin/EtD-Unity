@@ -15,7 +15,7 @@ public class SlimeController : MonoBehaviour
     private Vector2 mVelocity;
     private bool mGrounded = false;
 
-    private bool mPlayCredits = false;
+    public bool mPlayCredits { get; private set; } = false;
 
     void Start()
     {
@@ -25,22 +25,70 @@ public class SlimeController : MonoBehaviour
         mAudioPlayer = GameObject.FindObjectOfType<AudioPlayer>();
     }
 
+
+    #if UNITY_ANDROID || UNITY_IOS
+    private static float fScreenControllerPercent = .15f;
+    private static float fLeftScreenControllerSize = (float)Screen.width * fScreenControllerPercent;
+    private static float fRightScreenControllerSize = (float)Screen.width - fLeftScreenControllerSize;
+    
+    private static float fScreenJumpPercent = .4f;
+    private static float fScreenJumpSize = (float)Screen.height * (1f - fScreenJumpPercent);
+    #endif
     void Update()
     {
-        if (!mPlayCredits)
+        if (mPlayCredits)
         {
-            mVelocity = mRigidBody.velocity;
-            mVelocity.x = Input.GetAxis("hor") * mSpeed;
-            if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)) && mGrounded)
+            return;
+        }
+
+        mVelocity = mRigidBody.velocity;
+
+        #if UNITY_ANDROID || UNITY_IOS
+        
+        int iLeftTouchCnt = 0;
+        int iRightTouchCnt = 0;
+        int iJumpTouchCnt = 0;
+        foreach (Touch curTouch in Input.touches)
+        {
+            float iXCurPos = curTouch.position.x;
+            if (iXCurPos < fLeftScreenControllerSize)
             {
-                mGrounded = false;
-                mVelocity.y = mJumpForce;
-                mAudioPlayer.GetComponent<AudioSource>().volume = 1f;
-                mAudioPlayer.PlaySound(1);
+                iLeftTouchCnt++;
+            }
+            else if (iXCurPos > fRightScreenControllerSize)
+            {
+                iRightTouchCnt++;
             }
 
-            mRigidBody.velocity = mVelocity;
+            if (curTouch.position.y > fScreenJumpSize)
+            {
+                iJumpTouchCnt++;
+            }
         }
+        mVelocity.x = mSpeed * (iLeftTouchCnt > iRightTouchCnt ? -1 : (iLeftTouchCnt < iRightTouchCnt ? 1 : 0));
+        if (mGrounded && iJumpTouchCnt > 0)
+        {
+            mGrounded = false;
+            mVelocity.y = mJumpForce;
+            mAudioPlayer.GetComponent<AudioSource>().volume = 1f;
+            mAudioPlayer.PlaySound(1);
+        }
+
+        #else
+
+        mVelocity.x = Input.GetAxis("hor") * mSpeed;
+
+        if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)) && mGrounded)
+        {
+            mGrounded = false;
+            mVelocity.y = mJumpForce;
+            mAudioPlayer.GetComponent<AudioSource>().volume = 1f;
+            mAudioPlayer.PlaySound(1);
+        }
+        
+        #endif
+
+        mRigidBody.velocity = mVelocity;
     }
 
     void FixedUpdate()
